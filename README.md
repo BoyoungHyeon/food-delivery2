@@ -18,6 +18,8 @@
 
 ## Model
 www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3a2f82
+![image](https://user-images.githubusercontent.com/49936027/203245750-c32500b9-f6f0-411d-a4e2-26ed51bee53b.png)
+
 
 ## 체크포인트
 1. Saga (Pub / Sub)
