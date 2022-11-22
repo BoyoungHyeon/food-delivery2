@@ -115,8 +115,6 @@ public class PolicyHandler{
         
 
         // Sample Logic //
-        Payment.cancelPayment(event);
-        
 
         
 

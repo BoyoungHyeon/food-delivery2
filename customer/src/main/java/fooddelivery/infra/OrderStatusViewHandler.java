@@ -19,16 +19,17 @@ public class OrderStatusViewHandler {
     private OrderStatusRepository orderStatusRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void whenOrderPlaced_then_CREATE_1 (@Payload OrderPlaced orderPlaced) {
+    public void when주문됨_then_CREATE_ (@Payload 주문됨 주문됨) {
         try {
 
-            if (!orderPlaced.validate()) return;
+            if (!주문됨.validate()) return;
 
             // view 객체 생성
             OrderStatus orderStatus = new OrderStatus();
             // view 객체에 이벤트의 Value 를 set 함
-            orderStatus.setId(orderPlaced.getId());
-            orderStatus.setFoodId(orderPlaced.getFoodId());
+            orderStatus.setId(주문됨.getId());
+            orderStatus.setFoodId(주문됨.getFoodId());
+            orderStatus.set();
             // view 레파지 토리에 save
             orderStatusRepository.save(orderStatus);
 
