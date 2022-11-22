@@ -1,4 +1,4 @@
-# ☁️ Cloud Dev Lv2 
+# Cloud Devolper Lv2 Education
 ## 예제 - 음식배달
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다. 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
 
@@ -11,15 +11,15 @@
 - 상점주는 요리시작때와 완료 시점에 시스템에 상태를 입력한다.
 - 고객은 아직 요리가 시작되지 않은 주문은 취소할 수 있다.
 - 요리가 완료되면 고객의 지역 인근의 라이더들에 의해 배송건 조회가 가능하다.
+- 라이더가 해당 요리를 pick 한후, pick했다고 앱을 통해 통보한다.
+- 고객이 해당 요리를 pick 한후, pick했다고 앱을 통해 통보한다.
 - 고객이 주문상태를 중간중간 조회한다.
 - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다.
 - 고객이 요리를 배달 받으면 배송확인 버튼을 탭하여, 모든 거래가 완료된다.
-- 라이더가 해당 요리를 pick 한후, pick했다고 앱을 통해 통보한다.
 
 ## Model
 www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3a2f82
-![image](https://user-images.githubusercontent.com/49936027/203245750-c32500b9-f6f0-411d-a4e2-26ed51bee53b.png)
-
+![image](https://user-images.githubusercontent.com/51141885/203244696-5ff50100-b8fa-4fb5-83e5-af423cd03084.png)
 
 ## 체크포인트
 1. Saga (Pub / Sub)
@@ -28,6 +28,62 @@ www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3
 4. Request / Response
 5. Circuit Breaker
 6. Gateway / Ingress
+
+## Saga (Pub / Sub)
+![image](https://user-images.githubusercontent.com/51141885/203246459-4a0b0b3f-c7f2-4f3c-9c3f-4f684f974a93.png)
+![image](https://user-images.githubusercontent.com/51141885/203246709-db78cce0-e1e0-4403-b104-72fc1bd5af4f.png)
+![image](https://user-images.githubusercontent.com/51141885/203246860-8654c8a3-7826-453c-9046-8aaf2754e657.png)
+
+## Request  / Response
+![image](https://user-images.githubusercontent.com/51141885/203247652-e01cdc55-ca84-4148-b59f-785268d5970e.png)
+![image](https://user-images.githubusercontent.com/51141885/203247842-f172bf71-a467-4ccc-be77-7108d1ccba8f.png)
+
+## Circuit Breaker
+![image](https://user-images.githubusercontent.com/51141885/203248162-fb1512a4-2c14-49c4-b17f-459a17ecf9eb.png)
+
+## Gateway / Ingress
+```
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: front
+          uri: http://front:8080
+          predicates:
+            - Path=/주문/**, /orders/**, /payments/**, /메뉴판/**, /통합주문상태/**
+        - id: store
+          uri: http://store:8080
+          predicates:
+            - Path=/주문관리/**, /orderManages/**, /주문상세보기/**
+        - id: customer
+          uri: http://customer:8080
+          predicates:
+            - Path=/logs/**, /orderStatuses/**
+        - id: delivery
+          uri: http://delivery:8080
+          predicates:
+            - Path=/deliveries/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
+
+```
+
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
@@ -118,4 +174,3 @@ sudo ./aws/install
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 ```
-
