@@ -86,6 +86,9 @@ server:
 
 ```
 
+## 추가사항 
+![image](https://user-images.githubusercontent.com/51141885/203253702-91497efc-7743-4214-a635-91b46a11c384.png)
+- 배송 완료/픽업 상태 확인 가능
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
