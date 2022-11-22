@@ -89,6 +89,10 @@ server:
 ## 추가사항 
 ![image](https://user-images.githubusercontent.com/51141885/203256031-a31e5fbc-2b92-4ab5-b9ce-4a9faa270671.png)
 - 배송 완료/픽업 상태 확인 가능
+![image](https://user-images.githubusercontent.com/51141885/203256586-2c1fa4ca-2378-41f7-9eed-2c1e0cbd251b.png)
+![image](https://user-images.githubusercontent.com/51141885/203256655-c8269504-6a37-4e37-9677-46b87f2d8353.png)
+- 주문 수락/거절, 요리 시작/완료 상태 확인 가능
+- 사용자는 요리 시작 전 주문 취소 가능
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
