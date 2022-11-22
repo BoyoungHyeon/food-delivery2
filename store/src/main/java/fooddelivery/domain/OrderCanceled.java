@@ -12,7 +12,7 @@ public class OrderCanceled extends AbstractEvent {
     private String foodId;
     private Integer amount;
     private String customerId;
-    private String preference;
+    private String status;
 }
 
 
