@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: front
-          image: username/front:latest
+          image: hyeonboyoung/front:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: store
-          image: username/store:latest
+          image: hyeonboyoung/store:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: customer
-          image: username/customer:latest
+          image: hyeonboyoung/customer:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -138,7 +138,7 @@ spec:
     spec:
       containers:
         - name: delivery
-          image: username/delivery:latest
+          image: hyeonboyoung/delivery:v1
           ports:
             - containerPort: 8080
           readinessProbe:
