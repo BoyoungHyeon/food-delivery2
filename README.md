@@ -15,6 +15,8 @@
 - 고객이 주문상태를 중간중간 조회한다.
 - 라이더의 배달이 끝나면 배송확인 버튼으로 모든 거래가 완료된다.
 
+![KakaoTalk_Photo_2023-05-16-16-41-11](https://github.com/BoyoungHyeon/food-delivery2/assets/49936027/592556bc-fc90-4d3f-a9d2-6412cf7d1e88)
+
 ## Model
 www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3a2f82
 ![image](https://user-images.githubusercontent.com/51141885/203255488-4d1b32c5-b23d-4fad-ab68-f8532c7bfd7d.png)
@@ -89,6 +91,8 @@ server:
 ![image](https://user-images.githubusercontent.com/51141885/203256655-c8269504-6a37-4e37-9677-46b87f2d8353.png)
 - 주문 수락/거절, 요리 시작/완료 상태 확인 가능
 - 사용자는 요리 시작 전 주문 취소 가능
+
+
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
