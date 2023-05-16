@@ -15,4 +15,5 @@ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/d
 sudo mv /tmp/eksctl /usr/local/bin
 
 cd kafka
+docker container rm kafka-kafka-1 kafka-zookeeper-1
 docker-compose up
