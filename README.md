@@ -4,6 +4,19 @@
 ## 예제 - 음식배달
 본 예제는 MSA/DDD/Event Storming/EDA 를 포괄하는 분석/설계/구현/운영 전단계를 커버하도록 구성한 예제입니다. 이는 클라우드 네이티브 애플리케이션의 개발에 요구되는 체크포인트들을 통과하기 위한 예시 답안을 포함합니다.
 
+### 설계
+- Fooddelivery 모델링 후 github commit & push
+- 개발 중간에 모델 수정시, 코드레벨에서 sync.추천
+### 구현
+- gitpod 사용시 : Kafka 설치 필요 없음.
+- local 환경 사용시 : Kafka standalone 설치필요
+### 배포
+- Cloud : 쿠버네티스 설치 필요없음,Kafka 설치필요
+- 쿠버네티스 유틸리티 Lab 참조
+- Kubernetes 작업시, (./init.sh)
+### 운영
+- Zero-downtime Deploy : 셀프힐링 & 무정지 배포 실습 Lab참조
+
 ## 서비스 시나리오
 ### 기능적 요구사항
 - 고객이 메뉴를 선택하여 주문한다.
