@@ -1,5 +1,6 @@
 FROM webratio/nodejs-http-server
 
+
 VOLUME /tmp
 ADD dist /opt/www
 ADD run.sh /opt/run.sh
