@@ -35,12 +35,11 @@ www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3
 ![image](https://user-images.githubusercontent.com/51141885/203255488-4d1b32c5-b23d-4fad-ab68-f8532c7bfd7d.png)
 
 ## 체크포인트
-1. Saga (Pub / Sub)
-2. CQRS
-3. Compensation / Correlation
-4. Request / Response
-5. Circuit Breaker
-6. Gateway / Ingress
+1. Eventstorming Model
+2. Saga
+3. Service Router 
+4. zero downtime Deployment
+
 
 ## Saga (Pub / Sub)
 ![image](https://user-images.githubusercontent.com/51141885/203246459-4a0b0b3f-c7f2-4f3c-9c3f-4f684f974a93.png)
