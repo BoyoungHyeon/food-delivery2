@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: customer
-          image: username/customer:latest
+          image: hyeonboyoung/customer:v1
           ports:
             - containerPort: 8080
           readinessProbe:
