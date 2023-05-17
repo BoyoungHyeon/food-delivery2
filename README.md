@@ -31,8 +31,7 @@
 ![KakaoTalk_Photo_2023-05-16-16-41-11](https://github.com/BoyoungHyeon/food-delivery2/assets/49936027/592556bc-fc90-4d3f-a9d2-6412cf7d1e88)
 
 ## Model
-www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3a2f82
-![image](https://user-images.githubusercontent.com/51141885/203255488-4d1b32c5-b23d-4fad-ab68-f8532c7bfd7d.png)
+www.msaez.io/#/storming/clouldlvsm
 
 ## 체크포인트
 1. Eventstorming Model
@@ -40,94 +39,26 @@ www.msaez.io/#/storming/Q8eftQC5maXPCTCtN9vbXkjAgIl2/d3441e0dfde982ce5847c722ab3
 3. Service Router 
 4. zero downtime Deployment
 
-
-## Saga (Pub / Sub)
-![image](https://user-images.githubusercontent.com/51141885/203246459-4a0b0b3f-c7f2-4f3c-9c3f-4f684f974a93.png)
-![image](https://user-images.githubusercontent.com/51141885/203246709-db78cce0-e1e0-4403-b104-72fc1bd5af4f.png)
-![image](https://user-images.githubusercontent.com/51141885/203246860-8654c8a3-7826-453c-9046-8aaf2754e657.png)
-
-## Request  / Response
-![image](https://user-images.githubusercontent.com/51141885/203247652-e01cdc55-ca84-4148-b59f-785268d5970e.png)
-![image](https://user-images.githubusercontent.com/51141885/203247842-f172bf71-a467-4ccc-be77-7108d1ccba8f.png)
-
-## Circuit Breaker
-![image](https://user-images.githubusercontent.com/51141885/203248162-fb1512a4-2c14-49c4-b17f-459a17ecf9eb.png)
-
-## Gateway / Ingress
-```
-spring:
-  profiles: docker
-  cloud:
-    gateway:
-      routes:
-        - id: front
-          uri: http://front:8080
-          predicates:
-            - Path=/주문/**, /orders/**, /payments/**, /메뉴판/**, /통합주문상태/**
-        - id: store
-          uri: http://store:8080
-          predicates:
-            - Path=/주문관리/**, /orderManages/**, /주문상세보기/**
-        - id: customer
-          uri: http://customer:8080
-          predicates:
-            - Path=/logs/**, /orderStatuses/**
-        - id: delivery
-          uri: http://delivery:8080
-          predicates:
-            - Path=/deliveries/**, 
-        - id: frontend
-          uri: http://frontend:8080
-          predicates:
-            - Path=/**
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins:
-              - "*"
-            allowedMethods:
-              - "*"
-            allowedHeaders:
-              - "*"
-            allowCredentials: true
-
-server:
-  port: 8080
-
-```
-
-## 추가사항 
-![image](https://user-images.githubusercontent.com/51141885/203256031-a31e5fbc-2b92-4ab5-b9ce-4a9faa270671.png)
-- 배송 완료/픽업 상태 확인 가능
-![image](https://user-images.githubusercontent.com/51141885/203256586-2c1fa4ca-2378-41f7-9eed-2c1e0cbd251b.png)
-![image](https://user-images.githubusercontent.com/51141885/203256655-c8269504-6a37-4e37-9677-46b87f2d8353.png)
-- 주문 수락/거절, 요리 시작/완료 상태 확인 가능
-- 사용자는 요리 시작 전 주문 취소 가능
-
-
-
 ## Before Running Services
 ### Make sure there is a Kafka server running
 ```
 cd kafka
 docker-compose up
 ```
-- Check the Kafka messages:
+#### Check the Kafka messages:
 ```
 cd kafka
 docker-compose exec -it kafka /bin/bash
 cd /bin
-./kafka-console-consumer --bootstrap-server localhost:9092 --topic 
+./kafka-console-consumer --bootstrap-server localhost:9092 --topic cloudlv3
 ```
 
 ## Run the backend micro-services
 See the README.md files inside the each microservices directory:
-
-- front
+- app
 - store
-- customer
 - delivery
-
+- customerCenter
 
 ## Run API Gateway (Spring Gateway)
 ```
@@ -136,26 +67,18 @@ mvn spring-boot:run
 ```
 
 ## Test by API
-- front
+- app
 ```
- http :8088/주문 id="id" 품목="품목" 수량="수량" 
  http :8088/orders id="id" foodId="foodId" amount="amount" customerId="customerId" options="options" address="address" status="status" 
- http :8088/payments id="id" orderId="orderId" amount="amount" 
 ```
 - store
 ```
- http :8088/주문관리 id="id" 
- http :8088/orderManages id="id" foodId="foodId" orderId="orderId" status="status" test="test" couponNumber="couponNumber" 
-```
-- customer
-```
- http :8088/logs id="id" customerId="customerId" message="message" 
+ http :8088/orderManages id="id" foodId="foodId" orderId="orderId" amount="amount" options="options" address="address" status="status" 
 ```
 - delivery
 ```
- http :8088/deliveries id="id" address="address" orderId="orderId" riderId="riderId" status="status" 
+ http :8088/deliveries id="id" orderId="orderId" riderId="riderId" address="address" status="status" 
 ```
-
 
 ## Run the frontend
 ```
@@ -168,7 +91,6 @@ npm run serve
 Open a browser to localhost:8088
 
 ## Required Utilities
-
 - httpie (alternative for curl / POSTMAN) and network utils
 ```
 sudo apt-get update
@@ -176,21 +98,18 @@ sudo apt-get install net-tools
 sudo apt install iputils-ping
 pip install httpie
 ```
-
 - kubernetes utilities (kubectl)
 ```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```
-
 - aws cli (aws)
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
 ```
-
-- eksctl 
+- eksctl
 ```
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
