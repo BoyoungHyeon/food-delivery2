@@ -3,22 +3,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front
+  name: app
   labels:
-    app: front
+    app: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front
+      app: app
   template:
     metadata:
       labels:
-        app: front
+        app: app
     spec:
       containers:
-        - name: front
-          image: hyeonboyoung/front:v1
+        - name: app
+          image: sejunyoo/app:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -58,47 +58,7 @@ spec:
     spec:
       containers:
         - name: store
-          image: hyeonboyoung/store:v1
-          ports:
-            - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 10
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 10
-          livenessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 120
-            timeoutSeconds: 2
-            periodSeconds: 5
-            failureThreshold: 5
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: customer
-  labels:
-    app: customer
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: customer
-  template:
-    metadata:
-      labels:
-        app: customer
-    spec:
-      containers:
-        - name: customer
-          image: hyeonboyoung/customer:v1
+          image: sejunyoo/store:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -138,7 +98,47 @@ spec:
     spec:
       containers:
         - name: delivery
-          image: hyeonboyoung/delivery:v1
+          image: sejunyoo/delivery:v1
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customerCenter
+  labels:
+    app: customerCenter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customerCenter
+  template:
+    metadata:
+      labels:
+        app: customerCenter
+    spec:
+      containers:
+        - name: customerCenter
+          image: sejunyoo/customerCenter:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -165,15 +165,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front
+  name: app
   labels:
-    app: front
+    app: app
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: front
+    app: app
 
 
 ---
@@ -199,23 +199,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer
-  labels:
-    app: customer
-spec:
-  ports:
-    - port: 8080
-      targetPort: 8080
-  selector:
-    app: customer
-
-
----
-
-
-apiVersion: v1
-kind: Service
-metadata:
   name: delivery
   labels:
     app: delivery
@@ -226,3 +209,19 @@ spec:
   selector:
     app: delivery
 
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerCenter
+  labels:
+    app: customerCenter
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: customerCenter
